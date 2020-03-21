@@ -159,13 +159,13 @@ class ViCareClimate(ClimateDevice):
             ] = self._api.getCirculationPumpActive()
 
             # Update the specific device attributes
-            if self._heating_type == HeatingType.gas:
+            if self._heating_type == HeatingType.gas or self._heating_type == HeatingType.oil:
                 self._current_action = self._api.getBurnerActive()
-
+                
                 self._attributes["burner_modulation"] = self._api.getBurnerModulation()
-                self._attributes[
-                    "boiler_temperature"
-                ] = self._api.getBoilerTemperature()
+                self._attributes["burner_hours"] = self._api.getBurnerHours()
+                self._attributes["burner_starts"] = self._api.getBurnerStarts()
+                self._attributes["boiler_temperature"] = self._api.getBoilerTemperature()
 
             elif self._heating_type == HeatingType.heatpump:
                 self._current_action = self._api.getCompressorActive()
